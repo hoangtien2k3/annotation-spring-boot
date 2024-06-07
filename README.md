@@ -543,3 +543,17 @@ public class User {
 ```
 
 
+## [@DependsOn](): trong Spring Framework được sử dụng để chỉ định rằng một bean cụ thể phụ thuộc vào một hoặc nhiều bean khác trong container Spring. 
+
+Công dụng của @DependsOn:
+- `Xác định thứ tự tạo bean`: xác định một thứ tự tạo bean cụ thể, đảm bảo rằng các bean phụ thuộc sẽ được tạo ra trước khi bean hiện tại được tạo ra.
+- `Đảm bảo sự sẵn sàng của các phụ thuộc`: một bean cần sử dụng các bean khác để hoạt động chính xác. Sử dụng @DependsOn giúp đảm bảo rằng các phụ thuộc đã sẵn sàng trước khi bean chính được tạo ra.
+
+```
+@Component
+@DependsOn({"beanB", "beanC"})
+public class BeanA {
+    // Các thuộc tính và phương thức của BeanA
+}
+```
+
