@@ -397,5 +397,86 @@
 - [@PreAuthorize]()
 
 
-  
+## Trong Java: làm việc với XML thường sử dụng thư viện JAXB (Java Architecture for XML Binding)
+
+[@XmlRootElement]() : là annotation được sử dụng trong JAXB đại diện cho phần tử gốc của tài liệu XML
+
+Chức Năng: 
+
++ [@XmlRootElement]() chỉ định rằng lớp Java được chú thích là phần tử gốc của XML,
+Tạo ra XML từ đối tượng Java (chuyển từ đối tượng Java sang XML)
+
+```
+@XmlRootElement(name = "person") 
+public class Person { 
+	private String name; 
+	private int age;
+
+	 // Getters and setters
+}
+
+=> XML:
+<person>
+    <name>John Doe</name>
+    <age>30</age>
+</person>
+```
+
+
++ [@XmlAccessorType](): annotation trong JAXB được sử dụng để kiểm soát cách các thuộc tính của lớp Java được ánh xạ vào các phần tử XML
+
+
+```
+@XmlRootElement(name = "person")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Person {
+    private String name;
+    private int age;
+
+    // Getters and setters
+}
+```
+
+
+## [@Builder]() và [@SuperBuilder]() trong Lombok
+
+ - @Builder là annotation cơ bản của Lombok để tạo một builder cho một lớp
+
+ + Không hỗ trợ kế thừa: Nếu bạn có các lớp con kế thừa từ một lớp cha, @Builder sẽ không cho phép bạn kế thừa builder từ lớp cha một cách dễ dàng.
+
+```
+@Getter
+@Builder
+public class Person {
+    private String name;
+    private int age;
+}
+
+@Getter
+@Builder
+public class Student {
+    private String name;
+    private int age;
+    private String school;
+}
+```
+
+[@SuperBuilder](): là một phiên bản mở rộng của @Builder được Lombok cung cấp để hỗ trợ tốt hơn cho các lớp kế thừa.
+* Hỗ trợ kế thừa: Cho phép các lớp con kế thừa builder từ lớp cha.
+
+```
+@Getter
+@SuperBuilder
+public class Person {
+    private String name;
+    private int age;
+}
+
+@Getter
+@SuperBuilder
+public class Student extends Person {
+    private String school;
+}
+```
+
 
