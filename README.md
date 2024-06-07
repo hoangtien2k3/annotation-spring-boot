@@ -480,3 +480,66 @@ public class Student extends Person {
 ```
 
 
+## [@Transient](): trong Java Persistence API (JPA) được sử dụng để chỉ định rằng một thuộc tính của lớp không nên được ánh xạ tới cơ sở dữ liệu.
+- `Bỏ qua thuộc tính`: Chỉ định rằng một thuộc tính sẽ không được ánh xạ vào cơ sở dữ liệu, và do đó sẽ không được lưu trữ hoặc truy xuất khi thao tác với cơ sở dữ liệu.
+- `Tính toán`: Thường được sử dụng cho các thuộc tính được tính toán hoặc các thuộc tính chỉ có ý nghĩa trong ngữ cảnh của ứng dụng mà không cần lưu trữ lâu dài.
+
+VD: User và bạn muốn thêm một thuộc tính fullName được tính toán từ các thuộc tính firstName và lastName, nhưng không muốn lưu trữ fullName trong cơ sở dữ liệu.
+```
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Transient;
+
+@Entity
+public class User {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String firstName;
+    private String lastName;
+    
+    @Transient
+    private String fullName;
+
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+        updateFullName();
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+        updateFullName();
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    private void updateFullName() {
+        this.fullName = this.firstName + " " + this.lastName;
+    }
+}
+```
+
+
